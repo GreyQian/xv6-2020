@@ -14,6 +14,7 @@ int exec(char*, char**);
 int open(const char*, int);
 int mknod(const char*, short, short);
 int unlink(const char*);
+// 将打开的文件的信息放置在stat 中
 int fstat(int fd, struct stat*);
 int link(const char*, const char*);
 int mkdir(const char*);
@@ -25,6 +26,7 @@ int sleep(int);
 int uptime(void);
 
 // ulib.c
+// 将指定名称的文件放入到stat结构体中
 int stat(const char*, struct stat*);
 char* strcpy(char*, const char*);
 void *memmove(void*, const void*, int);

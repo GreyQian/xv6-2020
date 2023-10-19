@@ -95,6 +95,7 @@ atoi(const char *s)
   return n;
 }
 
+//复制vsrc添加到vdst中，并返回vdst最初的地址
 void*
 memmove(void *vdst, const void *vsrc, int n)
 {

@@ -30,22 +30,25 @@ ls(char *path)
   struct dirent de;
   struct stat st;
 
+  // 查看路径是否能打开
   if((fd = open(path, 0)) < 0){
     fprintf(2, "ls: cannot open %s\n", path);
     return;
   }
-
+  // 检查并将文件信息放到st中
   if(fstat(fd, &st) < 0){
     fprintf(2, "ls: cannot stat %s\n", path);
     close(fd);
     return;
   }
 
+  // 检查文件类型的种类
   switch(st.type){
+  // 文件直接显示信息
   case T_FILE:
     printf("%s %d %d %l\n", fmtname(path), st.type, st.ino, st.size);
     break;
-
+  // 目录
   case T_DIR:
     if(strlen(path) + 1 + DIRSIZ + 1 > sizeof buf){
       printf("ls: path too long\n");
@@ -54,7 +57,9 @@ ls(char *path)
     strcpy(buf, path);
     p = buf+strlen(buf);
     *p++ = '/';
+    // 将目录的drent结构遍历
     while(read(fd, &de, sizeof(de)) == sizeof(de)){
+      // 该目录项为空，跳出
       if(de.inum == 0)
         continue;
       memmove(p, de.name, DIRSIZ);
@@ -75,10 +80,12 @@ main(int argc, char *argv[])
 {
   int i;
 
+  //无参数选择当前目录
   if(argc < 2){
     ls(".");
     exit(0);
   }
+  // 核心为ls函数
   for(i=1; i<argc; i++)
     ls(argv[i]);
   exit(0);
