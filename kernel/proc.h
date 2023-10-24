@@ -1,3 +1,5 @@
+// 定义了进程相关的一些结构体的内容
+
 // Saved registers for kernel context switches.
 struct context {
   uint64 ra;
@@ -103,4 +105,6 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
+
+  int mask;                    // 掩码用于trace函数
 };

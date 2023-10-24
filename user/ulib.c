@@ -84,6 +84,7 @@ stat(const char *n, struct stat *st)
   return r;
 }
 
+// 将字符串转换为数字，并返回
 int
 atoi(const char *s)
 {

@@ -289,6 +289,9 @@ fork(void)
       np->ofile[i] = filedup(p->ofile[i]);
   np->cwd = idup(p->cwd);
 
+  //拷贝父进程的掩码到子进程
+  np->mask = p->mask; 
+
   safestrcpy(np->name, p->name, sizeof(p->name));
 
   pid = np->pid;
@@ -692,4 +695,18 @@ procdump(void)
     printf("%d %s %s", p->pid, state, p->name);
     printf("\n");
   }
+}
+
+uint64
+get_free_procnum(void)
+{
+  struct proc *p;
+  uint64 procnum=0;
+
+  for(p = proc; p < &proc[NPROC]; p++) {
+    if(p->state != UNUSED) {
+      ++procnum;
+    }
+  }
+  return procnum;
 }

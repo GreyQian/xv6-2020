@@ -1,7 +1,8 @@
 struct stat;
 struct rtcdate;
 
-// system calls
+// system calls 
+// 想要在用户代码中添加执行系统调用需要在这里添加函数声明
 int fork(void);
 int exit(int) __attribute__((noreturn));
 int wait(int*);
@@ -23,8 +24,14 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
+// trace系统调用
+int trace(int);
+// sysinfo系统调用
+struct sysinfo;
+int sysinfo(struct sysinfo *);
 
 // ulib.c
+// user模块下提供的写好的一些函数接口
 int stat(const char*, struct stat*);
 char* strcpy(char*, const char*);
 void *memmove(void*, const void*, int);

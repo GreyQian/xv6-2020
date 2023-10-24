@@ -84,6 +84,8 @@ fileclose(struct file *f)
 
 // Get metadata about file f.
 // addr is a user virtual address, pointing to a struct stat.
+// 获得文件f的数据，传入的地址是用户空间的虚拟地址
+// 该地址指向stat结构体
 int
 filestat(struct file *f, uint64 addr)
 {
